@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local caches and test artifacts
+.pytest_cache/
+.mypy_cache/
+
+# Generated results
+*/result_files/*.png
+*/result_files/*.pdf
+*/result_files/*.csv
+*/result_files/*.json
+*/result_files/*.txt
