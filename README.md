@@ -16,6 +16,8 @@ For each network, the repository stores:
 - input data files in `data/`
 - exported metrics and figures in `result_files/`
 
+The `result_files/` directories are intentionally versioned in this repository. They are the published, reproducible outputs generated from the current input data and analysis workflow, so readers can inspect the exported tables and figures directly without rerunning the notebook first.
+
 The current notebook is able to:
 
 - validate whether the required input files exist
@@ -59,6 +61,8 @@ Gene names using Ensembl gene identifiers. For compressed nodes, the exported na
 ## Output files
 
 For each processed network, the notebook exports results into `result_files/`.
+
+These files are committed to the repository as analysis outputs, not temporary artifacts. Re-running the notebook may regenerate them, but the checked-in versions represent the current published outputs associated with this project state.
 
 Expected outputs:
 
