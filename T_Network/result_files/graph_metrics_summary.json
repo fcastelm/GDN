@@ -1,0 +1,22 @@
+{
+  "network": "T_Network",
+  "label": "T",
+  "n_nodes": 6138,
+  "n_edges": 102362,
+  "n_samples": 499,
+  "density": 0.0027174136673892256,
+  "max_in_degree": 237,
+  "mean_in_degree": 16.67676767676768,
+  "max_out_degree": 221,
+  "mean_out_degree": 16.67676767676768,
+  "isolated_nodes": 151,
+  "orphan_nodes": 1624,
+  "childless_nodes": 582,
+  "maximum_diameter": 14,
+  "mean_diameter": 2.5652388143608285,
+  "directed_reachable_diameter": 14,
+  "directed_mean_reachable_distance": 2.5652388143608285,
+  "largest_wcc_size": 5967,
+  "largest_wcc_undirected_diameter": 9,
+  "distance_method": "scipy_shortest_path"
+}

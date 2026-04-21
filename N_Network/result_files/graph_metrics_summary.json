@@ -1,0 +1,22 @@
+{
+  "network": "N_Network",
+  "label": "N",
+  "n_nodes": 499,
+  "n_edges": 4984,
+  "n_samples": 52,
+  "density": 0.02005617661024861,
+  "max_in_degree": 60,
+  "mean_in_degree": 9.987975951903808,
+  "max_out_degree": 165,
+  "mean_out_degree": 9.987975951903808,
+  "isolated_nodes": 1,
+  "orphan_nodes": 9,
+  "childless_nodes": 92,
+  "maximum_diameter": 10,
+  "mean_diameter": 2.463630706153677,
+  "directed_reachable_diameter": 10,
+  "directed_mean_reachable_distance": 2.463630706153677,
+  "largest_wcc_size": 498,
+  "largest_wcc_undirected_diameter": 7,
+  "distance_method": "scipy_shortest_path"
+}

@@ -1,0 +1,19 @@
+Graph metrics summary
+Network: T_Network
+Label: T
+Nodes: 6138
+Edges: 102362
+Samples: 499
+Density: 0.0027174137
+Maximum in-degree: 237
+Mean in-degree: 16.676768
+Maximum out-degree: 221
+Mean out-degree: 16.676768
+Isolated nodes: 151
+Orphan nodes (non-isolated, in-degree 0): 1624
+Child-less nodes (non-isolated, out-degree 0): 582
+Maximum diameter (directed reachable pairs): 14
+Mean diameter (directed reachable pairs): 2.565239
+Largest WCC size: 5967
+Largest WCC undirected diameter: 9
+Distance method: scipy_shortest_path

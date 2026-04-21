@@ -25,32 +25,6 @@ The current notebook is able to:
 - compute sample-level spontaneous activation statistics
 - export figures and summary tables
 
-## Repository structure
-
-```text
-GDN/
-├── Get_Metrics.ipynb
-├── gdn_analysis.py
-├── requirements.txt
-├── README.md
-├── T_Network/
-│   ├── data/
-│   │   ├── graph_file.adjlist
-│   │   ├── test_frequencies.txt
-│   │   ├── nodes.txt
-│   │   ├── sample.txt
-│   │   └── names.csv
-│   └── result_files/
-└── N_Network/
-    ├── data/
-    │   ├── graph_file.adjlist
-    │   ├── test_frequencies.txt
-    │   ├── nodes.txt
-    │   ├── sample.txt
-    │   └── names.csv
-    └── result_files/
-```
-
 ## Input files
 
 Each network folder (`T_Network` or `N_Network`) is expected to contain the following files inside `data/`.

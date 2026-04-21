@@ -22,10 +22,3 @@ Thumbs.db
 # Local caches and test artifacts
 .pytest_cache/
 .mypy_cache/
-
-# Generated results
-*/result_files/*.png
-*/result_files/*.pdf
-*/result_files/*.csv
-*/result_files/*.json
-*/result_files/*.txt

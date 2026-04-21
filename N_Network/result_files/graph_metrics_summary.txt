@@ -1,0 +1,19 @@
+Graph metrics summary
+Network: N_Network
+Label: N
+Nodes: 499
+Edges: 4984
+Samples: 52
+Density: 0.0200561766
+Maximum in-degree: 60
+Mean in-degree: 9.987976
+Maximum out-degree: 165
+Mean out-degree: 9.987976
+Isolated nodes: 1
+Orphan nodes (non-isolated, in-degree 0): 9
+Child-less nodes (non-isolated, out-degree 0): 92
+Maximum diameter (directed reachable pairs): 10
+Mean diameter (directed reachable pairs): 2.463631
+Largest WCC size: 498
+Largest WCC undirected diameter: 7
+Distance method: scipy_shortest_path
