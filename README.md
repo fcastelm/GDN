@@ -1,8 +1,18 @@
 # GDN
 
-Reproducible network-analysis repository for the prostate cancer (**PRAD**) calculations associated with the GDN paper.
+This is the official repository associated to the paper [N-Gene and T-Gene Desregulation Networks: A data-driven causal framework for the analysis of gene interventions in cancer](https://www.biorxiv.org/content/10.1101/2023.12.28.573550v2).
 
-This project is designed to provide the data organization, notebook workflow, and exported metrics required to inspect the **T-network** and **N-network** analyses used in the study.
+**Background:** The construction of realistic gene regulatory networks is currently hindered by the complex, often redundant, combinatorial and multi-layered nature of gene interdependencies, the limited availability of functional annotations, and the intrinsic shortcomings of co-expression-based approaches. Here, we introduce Gene Deregulation Networks (GDNs), a new structure in which linked genes indicate that an expression deregulation in one is likely to propagate to the other. GDNs are inferred directly from gene expression data using a probabilistic theory of causation, without requiring prior functional annotation or other domain knowledge.
+
+**Methods:** Using highly specific tissue markers—N-genes specifically expressed in normal tissues and T-genes specifically expressed in tumors—we construct separate GDNs for normal and tumor tissues. Data are obtained from TCGA RNA-Seq profiles of bulk tumor and normal tissue samples across multiple cancer localizations. GDN links are preliminarily identified via a statistical test of causal sufficiency between gene expression deregulation events, and then reassessed as spurious or redundant using additional causal criteria. A simple scheme based on the GDNs is implemented in order to describe the evolution dynamics.
+
+**Results:** The T-GDN in prostate adenocarcinoma comprises 6138 genes and 102362 directed edges (0.27% of possible connections). Genes with low expression deregulation frequency (< 0.2) exhibit high out-degrees, indicating high deregulation potential, while high-frequency genes (> 0.4) show high in-degrees, suggesting they are convergence points of deregulation cascades. EPHA10 (frequency 0.74, in-degree 182) and ENSG00000275479 (out-degree 209) represent these extremes. The N-GDN contains 1097 genes and 4984 edges, featuring compressed nodes reflecting the multistep nature of somatic evolution. Analysis of tumor samples reveals that early-stage tumors rely primarily on spontaneous gene activations, while advanced tumors exhibit extensive cascade-driven deregulation. Preliminary simulations show qualitative agreement with experiments on gene knockdown in tumor cellular lines.
+
+**Conclusions:** GDNs provide a robust framework to understand cancer progression through deregulation cascades. The separation into N and T networks, connected by NT-genes, i.e. genes common to both networks, offers a systematic basis for modeling carcinogenesis and the possible outcomes of therapeutic interventions.
+
+The paper is based on the construction of the causal networks described by J. P. Gomez in his Diploma Thesis, whose algorithm was used to obtain the tissue-specific networks included in the paper.
+
+This repository provides the reproducible network-analysis workflow and exported metrics required to inspect the **T_Network** and **N_Network** analyses for prostate adenocarcinoma (**PRAD**) used in the study.
 
 ## Project purpose
 
@@ -82,8 +92,7 @@ Expected outputs:
 
 For each node:
 
-- graph index
-- representative original gene index
+- graph node identifier
 - gene name
 - frequency
 - in-degree
@@ -120,10 +129,10 @@ Only nodes with both in-degree `0` and out-degree `0` are included in this file.
 
 For each sample:
 
-- total active genes
-- spontaneously active genes
+- `T_Network`: total active genes and spontaneously active genes
+- `N_Network`: total inactive genes and spontaneously inactive genes
 
-A gene is counted as **spontaneously active** when it is active in a sample and none of its parent nodes are active in that same sample.
+A gene is counted as **spontaneously active** when it is active in a sample and none of its parent nodes are active in that same sample. In the exported `N_Network` table, the corresponding columns are labeled as inactive metrics to match the interpretation used for the normal network outputs.
 
 ## Environment setup
 

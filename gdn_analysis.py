@@ -398,7 +398,8 @@ def plot_spontaneous_vs_total(sample_metrics: pd.DataFrame, bundle: dict[str, An
 
 def export_vertex_metrics(vertex_metrics: pd.DataFrame, results_dir: Path) -> Path:
     output_path = results_dir / "vertex_metrics.csv"
-    vertex_metrics.to_csv(output_path, index=False)
+    export_frame = vertex_metrics.loc[:, ["node_id", "name", "frequency", "in_degree", "out_degree"]]
+    export_frame.to_csv(output_path, index=False)
     return output_path
 
 
@@ -446,9 +447,17 @@ def export_graph_summary(summary: dict[str, Any], results_dir: Path) -> tuple[Pa
     return json_path, txt_path
 
 
-def export_sample_metrics(sample_metrics: pd.DataFrame, results_dir: Path) -> Path:
+def export_sample_metrics(sample_metrics: pd.DataFrame, results_dir: Path, network_name: str) -> Path:
     output_path = results_dir / "sample_activation_metrics.csv"
-    sample_metrics.to_csv(output_path, index=False)
+    export_frame = sample_metrics.copy()
+    if network_name == "N_Network":
+        export_frame = export_frame.rename(
+            columns={
+                "spontaneous_active": "spontaneous_inactive",
+                "total_active": "total_inactive",
+            }
+        )
+    export_frame.to_csv(output_path, index=False)
     return output_path
 
 
