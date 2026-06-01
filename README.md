@@ -47,11 +47,11 @@ Directed graph stored in NetworkX adjacency-list format.
 
 ### `test_frequencies.txt`
 
-Frequency value for each network vertex.
+Frequency value for each network vertex. Row `i` corresponds to graph vertex `i`.
 
 ### `nodes.txt`
 
-List of compressed graph nodes. Each row corresponds to one graph vertex. When several genes have identical behavior in the original binary matrix, they are compressed into one representative graph vertex. In those cases, multiple original gene indices may appear on the same line, and the first index is treated as the representative original gene used to recover the gene name.
+List of compressed graph nodes. Each row corresponds to one graph vertex. When several genes have identical behavior in the original binary matrix, they are compressed into one representative graph vertex. In those cases, multiple original gene indices may appear on the same line. This file documents the compression groups, but the vertex name is now read directly from `names.csv` by row order.
 
 ### `sample.txt`
 
@@ -62,11 +62,11 @@ Binary matrix in which:
 - `1` means the gene is deregulated in that sample
 - `0` means the gene is not deregulated in that sample
 
-For `T_Network`, columns represent tumor samples. For `N_Network`, columns represent normal samples.
+For `T_Network`, columns represent tumor samples. For `N_Network`, columns represent normal samples. Row `i` must refer to the same graph vertex as row `i` in `names.csv` and `test_frequencies.txt`.
 
 ### `names.csv`
 
-Gene names using Ensembl gene identifiers. For compressed nodes, the exported name corresponds to the first index listed in the matching row of `nodes.txt`.
+Gene names using Ensembl gene identifiers.
 
 ## Output files
 
