@@ -120,17 +120,14 @@ def load_network_bundle(root: Path, network_name: str) -> dict[str, Any]:
         raise ValueError(
             f"{network_name}: sample.txt tiene {sample_matrix.shape[0]} filas y nodes.txt tiene {n_nodes}."
         )
+    if len(names) != n_nodes:
+        raise ValueError(
+            f"{network_name}: names.csv tiene {len(names)} filas y nodes.txt tiene {n_nodes}. "
+            "Se espera exactamente un nombre por vértice del grafo, en el mismo orden que sample.txt y test_frequencies.txt."
+        )
 
     if not representative_original_ids:
         raise ValueError(f"{network_name}: nodes.txt no contiene grupos válidos.")
-
-    max_representative_id = max(representative_original_ids)
-    if max_representative_id >= len(names):
-        raise ValueError(
-            f"{network_name}: names.csv tiene {len(names)} filas, pero nodes.txt referencia el índice original {max_representative_id}."
-        )
-
-    graph_names = [names[original_id] for original_id in representative_original_ids]
 
     row_to_node = graph_node_ids
     node_to_row = {node_id: row_index for row_index, node_id in enumerate(row_to_node)}
@@ -145,7 +142,7 @@ def load_network_bundle(root: Path, network_name: str) -> dict[str, Any]:
         "graph": graph,
         "row_to_node": row_to_node,
         "node_to_row": node_to_row,
-        "names": graph_names,
+        "names": names,
         "representative_original_ids": representative_original_ids,
         "node_groups": node_groups,
         "frequencies": np.asarray(frequencies, dtype=float),
