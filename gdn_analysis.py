@@ -70,6 +70,23 @@ def read_names(names_path: Path) -> list[str]:
     return names
 
 
+def resolve_representative_names(names: list[str], representative_original_ids: list[int], network_name: str) -> list[str]:
+    if not representative_original_ids:
+        raise ValueError(f"{network_name}: nodes.txt no contiene grupos válidos.")
+
+    min_original_id = min(representative_original_ids)
+    max_original_id = max(representative_original_ids)
+    if min_original_id < 0:
+        raise ValueError(f"{network_name}: nodes.txt contiene índices originales negativos.")
+    if max_original_id >= len(names):
+        raise ValueError(
+            f"{network_name}: names.csv tiene {len(names)} filas, pero nodes.txt referencia el índice original {max_original_id}. "
+            "Se espera la lista completa de genes originales, sin comprimir, para poder resolver los representantes."
+        )
+
+    return [names[original_id] for original_id in representative_original_ids]
+
+
 def read_frequencies(frequencies_path: Path) -> list[float]:
     frequencies = pd.read_csv(frequencies_path, header=None).iloc[:, 0].astype(float).tolist()
     return frequencies
@@ -106,6 +123,7 @@ def load_network_bundle(root: Path, network_name: str) -> dict[str, Any]:
     node_groups = parse_node_groups(data_dir / "nodes.txt")
     representative_original_ids = [group[0] for group in node_groups]
     names = read_names(data_dir / "names.csv")
+    representative_names = resolve_representative_names(names, representative_original_ids, network_name)
     frequencies = read_frequencies(data_dir / "test_frequencies.txt")
     sample_matrix = read_sample_matrix(data_dir / "sample.txt")
     n_nodes = len(node_groups)
@@ -120,15 +138,6 @@ def load_network_bundle(root: Path, network_name: str) -> dict[str, Any]:
         raise ValueError(
             f"{network_name}: sample.txt tiene {sample_matrix.shape[0]} filas y nodes.txt tiene {n_nodes}."
         )
-    if len(names) != n_nodes:
-        raise ValueError(
-            f"{network_name}: names.csv tiene {len(names)} filas y nodes.txt tiene {n_nodes}. "
-            "Se espera exactamente un nombre por vértice del grafo, en el mismo orden que sample.txt y test_frequencies.txt."
-        )
-
-    if not representative_original_ids:
-        raise ValueError(f"{network_name}: nodes.txt no contiene grupos válidos.")
-
     row_to_node = graph_node_ids
     node_to_row = {node_id: row_index for row_index, node_id in enumerate(row_to_node)}
     if len(node_to_row) != len(row_to_node):
@@ -142,7 +151,8 @@ def load_network_bundle(root: Path, network_name: str) -> dict[str, Any]:
         "graph": graph,
         "row_to_node": row_to_node,
         "node_to_row": node_to_row,
-        "names": names,
+        "names": representative_names,
+        "original_names": names,
         "representative_original_ids": representative_original_ids,
         "node_groups": node_groups,
         "frequencies": np.asarray(frequencies, dtype=float),

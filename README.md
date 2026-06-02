@@ -51,7 +51,7 @@ Frequency value for each network vertex. Row `i` corresponds to graph vertex `i`
 
 ### `nodes.txt`
 
-List of compressed graph nodes. Each row corresponds to one graph vertex. When several genes have identical behavior in the original binary matrix, they are compressed into one representative graph vertex. In those cases, multiple original gene indices may appear on the same line. This file documents the compression groups, but the vertex name is now read directly from `names.csv` by row order.
+List of compressed graph nodes. Each row corresponds to one graph vertex. When several genes have identical behavior in the original binary matrix, they are compressed into one representative graph vertex. In those cases, multiple original gene indices may appear on the same line. The first value on each row is the representative original gene index used to recover the displayed gene name from the full `names.csv` list.
 
 ### `sample.txt`
 
@@ -62,11 +62,11 @@ Binary matrix in which:
 - `1` means the gene is deregulated in that sample
 - `0` means the gene is not deregulated in that sample
 
-For `T_Network`, columns represent tumor samples. For `N_Network`, columns represent normal samples. Row `i` must refer to the same graph vertex as row `i` in `names.csv` and `test_frequencies.txt`.
+For `T_Network`, columns represent tumor samples. For `N_Network`, columns represent normal samples. Row `i` must refer to the same graph vertex as row `i` in `nodes.txt` and `test_frequencies.txt`.
 
 ### `names.csv`
 
-Gene names using Ensembl gene identifiers.
+Full original gene-order list using Ensembl gene identifiers, one original gene per row and no header. This file is not aligned to compressed graph vertices. Instead, the analysis resolves each vertex name through the representative original index stored as the first value of the corresponding `nodes.txt` row.
 
 ## Output files
 
