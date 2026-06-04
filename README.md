@@ -26,16 +26,44 @@ For each network, the repository stores:
 - input data files in `data/`
 - exported metrics and figures in `result_files/`
 
-The `result_files/` directories are intentionally versioned in this repository. They are the published, reproducible outputs generated from the current input data and analysis workflow, so readers can inspect the exported tables and figures directly without rerunning the notebook first.
+The `result_files/` directories are intentionally versioned in this repository. They are the published, reproducible outputs generated from the current input data and analysis workflow, so readers can inspect the exported tables and figures directly without rerunning the analysis first.
 
-The current notebook is able to:
+The repository now separates the batch workflow from the exploration workflow:
+
+- `scripts/run_analysis.py` is the primary executable entrypoint for reproducible exports
+- `src/gdn/` contains the reusable analysis package
+- `notebooks/Explore_GDN_Results.ipynb` is a secondary notebook for visual inspection of generated outputs
+
+Primary script capabilities:
 
 - validate whether the required input files exist
 - process `T_Network` and `N_Network` automatically
-- skip incomplete networks without failing
+- skip incomplete networks without failing the whole run
 - compute vertex-level and graph-level metrics
 - compute sample-level spontaneous activation statistics
 - export figures and summary tables
+
+## Repository structure
+
+```text
+GDN/
+├── README.md
+├── requirements.txt
+├── scripts/
+│   └── run_analysis.py
+├── src/
+│   └── gdn/
+│       ├── __init__.py
+│       ├── analysis.py
+│       ├── export.py
+│       ├── io.py
+│       ├── pipeline.py
+│       └── plotting.py
+├── notebooks/
+│   └── Explore_GDN_Results.ipynb
+├── T_Network/
+└── N_Network/
+```
 
 ## Input files
 
@@ -70,9 +98,9 @@ Full original gene-order list using Ensembl gene identifiers, one original gene 
 
 ## Output files
 
-For each processed network, the notebook exports results into `result_files/`.
+For each processed network, the script exports results into `result_files/`.
 
-These files are committed to the repository as analysis outputs, not temporary artifacts. Re-running the notebook may regenerate them, but the checked-in versions represent the current published outputs associated with this project state.
+These files are committed to the repository as analysis outputs, not temporary artifacts. Re-running the script may regenerate them, but the checked-in versions represent the current published outputs associated with this project state.
 
 Expected outputs:
 
@@ -152,23 +180,39 @@ pip install -r requirements.txt
 
 ## How to run
 
-Open the notebook:
+Run the primary batch workflow from the repository root:
 
 ```bash
-jupyter notebook Get_Metrics.ipynb
+python scripts/run_analysis.py
 ```
 
-or:
-
-```bash
-jupyter lab Get_Metrics.ipynb
-```
-
-Then run the cells in order.
-
-The notebook will:
+The script will:
 
 1. detect which network folders are complete
 2. process all complete networks
 3. skip incomplete ones
 4. export all metrics and figures automatically
+5. print a concise run summary
+
+## Notebook exploration workflow
+
+After the script has generated or refreshed the outputs, open the notebook for visual exploration:
+
+```bash
+jupyter notebook notebooks/Explore_GDN_Results.ipynb
+```
+
+or:
+
+
+```bash
+jupyter lab notebooks/Explore_GDN_Results.ipynb
+```
+
+The notebook is intentionally focused on:
+
+1. inspecting exported summaries
+2. previewing CSV outputs
+3. displaying committed figures inline
+
+It is not the primary documented execution path for batch exports.
