@@ -31,7 +31,7 @@ The `result_files/` directories are intentionally versioned in this repository. 
 The repository now separates the batch workflow from the exploration workflow:
 
 - `scripts/run_analysis.py` is the primary executable entrypoint for reproducible exports
-- `src/gdn/` contains the reusable analysis package
+- `src/` contains the reusable analysis package modules directly at the package root
 - `notebooks/Explore_GDN_Results.ipynb` is a secondary notebook for visual inspection of generated outputs
 
 Primary script capabilities:
@@ -52,13 +52,12 @@ GDN/
 ├── scripts/
 │   └── run_analysis.py
 ├── src/
-│   └── gdn/
-│       ├── __init__.py
-│       ├── analysis.py
-│       ├── export.py
-│       ├── io.py
-│       ├── pipeline.py
-│       └── plotting.py
+│   ├── __init__.py
+│   ├── analysis.py
+│   ├── export.py
+│   ├── io.py
+│   ├── pipeline.py
+│   └── plotting.py
 ├── notebooks/
 │   └── Explore_GDN_Results.ipynb
 ├── T_Network/
